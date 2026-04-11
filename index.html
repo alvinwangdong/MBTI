@@ -1,31 +1,38 @@
 ﻿<!doctype html>
-<html>
+<html lang="zh-CN">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="A website for MBTI test">
+    <meta name="description" content="MBTI 职业性格测试 93 题版，提供十六型人格解析、优势特点与职业方向参考。">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="keywords" content="MBTI, mbti">
-    <title>首页</title>
+    <meta name="keywords" content="MBTI,MBTI测试,职业性格测试,十六型人格">
+    <meta property="og:title" content="MBTI 职业性格测试 93 题版">
+    <meta property="og:description" content="在线完成 93 题 MBTI 测试，并查看十六型人格的详细解析与职业建议。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mbti.msktmi.com/">
+    <link rel="canonical" href="https://mbti.msktmi.com/">
+    <title>MBTI 职业性格测试 93 题版</title>
     <link rel="shortcut icon" href="./static/img/favicon.ico">
     <link rel="stylesheet" href="./static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./static/css/title.css">
-    <link rel="stylesheet" href="./static/css/startbtn.css">
-    <link rel="stylesheet" href="./static/css/app.css">
-    <script src="./static/js/jquery-3.7.1.min.js"></script>
-    <script src="./static/js/bootstrap.min.js"></script>
-    <script src="./static/js/printProjectInfo.js"></script>
-    <script type="text/javascript" src="./static/js/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="./static/css/home-title.css">
+    <link rel="stylesheet" href="./static/css/start-button.css">
+    <link rel="stylesheet" href="./static/css/site.css">
+    <script src="./static/js/vendor/jquery-3.7.1.min.js"></script>
+    <script src="./static/js/vendor/bootstrap.min.js"></script>
+    <script src="./static/js/common/project-info.js"></script>
 </head>
 
 <body>
+    <!-- 首页只负责引导用户进入测试，并提供十六型人格入口。 -->
     <div>
+        <!-- 顶部导航在所有主要页面保持一致，降低跳转成本。 -->
         <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <a href="#" class="navbar-brand">MBTI</a>
-                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main"
+                        aria-label="切换导航菜单">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -34,7 +41,7 @@
                 <div class="navbar-collapse collapse" id="navbar-main">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="./personalities.html">十六种人格简介</a>
+                            <a href="./personality-types.html">十六种人格简介</a>
                         </li>
                     </ul>
                 </div>
@@ -43,6 +50,7 @@
 
         <div class="container">
 
+            <!-- 主视觉标题通过 SVG 文本描边动画突出测试主题。 -->
             <div class="page-header">
                 <div class="content">
                     <svg viewBox="0 0 1000 300" style="width: 100%;">
@@ -78,6 +86,7 @@
             </div>
 
 
+            <!-- 这里展示测试说明，帮助用户理解题目没有对错、结果仅供参考。 -->
             <div class="bs-docs-section">
                 <div class="row">
                     <div class="col-lg-12">
@@ -95,7 +104,8 @@
                 </div>
             </div>
 
-            <a href="./MBTI.html" class="a-btn">
+            <!-- 首页唯一的主操作按钮，直接进入答题页。 -->
+            <a href="./mbti-test.html" class="a-btn">
                 <span></span>
                 <span>Start</span>
                 <span>Go!</span>

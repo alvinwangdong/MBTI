@@ -1,3 +1,4 @@
+/* 人格详情页样式：控制首屏标题、展开按钮与正文过渡效果。 */
 html,
 body,
 .article,
@@ -9,7 +10,7 @@ p {
 	font-size: 14px
 }
 
-/* Header */
+/* 头图区：负责首屏标题的垂直居中展示。 */
 .header {
 	position: relative;
 	margin: 0 auto;
@@ -56,7 +57,7 @@ p {
 	font-size: 1.75em;
 }
 
-/* Trigger Button */
+/* 展开按钮：点击后把页面从封面态切换到正文阅读态。 */
 button.trigger {
 	position: fixed;
 	bottom: 40px;
@@ -130,7 +131,7 @@ button.trigger span::before {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-/***** Individual effects *****/
+/* 以下是 Jam3 风格的具体动效实现。 */
 
 /* -------------------------- */
 /* Jam 3 */

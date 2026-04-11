@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    // detect if IE : from http://stackoverflow.com/a/16657946
+    // 这个脚本控制详情页首屏到正文的展开动画，并兼顾旧版 IE 的兼容判断。
     var ie = (function () {
         var undef, rv = -1; // Return value assumes failure.
         var ua = window.navigator.userAgent;
@@ -20,9 +20,7 @@ $(document).ready(function () {
     }());
 
 
-    // disable/enable scroll (mousewheel and keys) from http://stackoverflow.com/a/4770179
-    // left: 37, up: 38, right: 39, down: 40,
-    // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+    // 在首屏阶段暂时锁定滚动，避免用户还没展开正文就把页面滚走。
     var keys = [32, 37, 38, 39, 40], wheelIter = 0;
 
     function preventDefault(e) {
@@ -71,6 +69,7 @@ $(document).ready(function () {
         trigger = container.querySelector('button.trigger');
 
     function scrollY() {
+        // 统一读取当前滚动值，兼容不同浏览器的实现差异。
         return window.pageYOffset || docElem.scrollTop;
     }
 
@@ -101,6 +100,7 @@ $(document).ready(function () {
     }
 
     function toggle(reveal) {
+        // modify 类名决定文章是否进入“正文展开”状态。
         isAnimating = true;
 
         if (reveal) {
@@ -123,7 +123,7 @@ $(document).ready(function () {
         }, 600);
     }
 
-    // refreshing the page...
+    // 刷新后如果页面已经有滚动位置，就直接恢复到展开态，避免视觉闪烁。
     var pageScroll = scrollY();
     noscroll = pageScroll === 0;
 
@@ -138,14 +138,4 @@ $(document).ready(function () {
     window.addEventListener('scroll', scrollPage);
     trigger.addEventListener('click', function () { toggle('reveal'); });
 
-    var license = "MIT License";
-    var github = "https://github.com/MskTmi/MBTI";
-    var disclaimer = "This project is for learning and reference only, and does not bear any responsibility.";
-    console.group("Project Information");
-
-    console.log("%cThis project is licensed under the " + license, "color: darkorange; font-size: 20px;");
-    console.log("%cThe source code for this project is hosted on " + github, "color: darkorange; font-size: 20px;");
-    console.log("%cDisclaimer: " + disclaimer, "color: darkorange; font-size: 20px;");
-
-    console.groupEnd();
 });

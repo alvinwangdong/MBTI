@@ -1,3 +1,4 @@
+/* 欢迎/介绍风格样式：包含分割标题、装饰文字和旧版网格布局。 */
 body {
     background: #ddd url("/static/img/field.jpg") no-repeat top left;
     -webkit-background-size: cover;
@@ -9,7 +10,7 @@ a {
     text-decoration: none;
 }
 
-/*ub open*/
+/* 上半部分是可展开的欢迎标题动画。 */
 .cs-text {
     width: 645px;
     margin: 120px auto 30px;
@@ -127,7 +128,7 @@ a {
 }
 
 
-/*type open*/
+/* 下半部分保留了旧版基于列表的网格布局样式。 */
 .grid {
     margin: 0;
     padding: 0;

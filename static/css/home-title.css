@@ -1,4 +1,4 @@
-/* test style */
+/* 首页 SVG 标题动画：多层描边文字循环位移，形成霓虹描边效果。 */
 @media screen and (max-width: 27em) {
   p {
     font-size: 11px;
@@ -62,7 +62,7 @@ body {
   }
 }
 
-/* mbti style */
+/* 下面这组样式控制彩色遮罩块在标题文字中的移动。 */
 .text--transparent {
   fill: transparent;
 }
@@ -122,6 +122,7 @@ body {
 
 
 div.content {
+  /* 标题容器使用 flex 居中，保证不同宽度屏幕上都能稳定显示。 */
   font: 800 14em/1 'Open Sans', Impact;
   display: flex;
   justify-content: center;

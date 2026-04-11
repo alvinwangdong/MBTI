@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MBTI 人格详情页，查看各人格类型的核心特点、优势、劣势与职业方向。">
+    <meta name="keywords" content="MBTI,人格类型,性格测试,职业建议,人格详情">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MBTI 人格详情">
+    <meta property="og:description" content="查看 MBTI 各人格类型的详细解析。">
+    <meta property="og:url" content="https://mbti.msktmi.com/personality-detail.html">
+    <meta property="og:site_name" content="MBTI 职业性格测试">
+    <link rel="canonical" href="https://mbti.msktmi.com/personality-detail.html">
+    <title>MBTI 人格详情</title>
+    <link rel="shortcut icon" href="./static/img/favicon.ico">
+    <link rel="stylesheet" href="./static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./static/css/personality-detail.css">
+    <link rel="stylesheet" href="./static/css/site.css">
+    <script src="./static/js/vendor/jquery-3.7.1.min.js"></script>
+    <script src="./static/js/vendor/bootstrap.min.js"></script>
+    <script src="./static/js/vendor/classie.js"></script>
+    <script src="./static/js/common/project-info.js"></script>
+    <script src="./static/js/pages/personality-intro.js"></script>
+    <script src="./static/js/pages/personality-detail.js"></script>
+</head>
+
+<body>
+    <!-- 通用详情页通过 URL 中的 type 参数决定展示哪一种人格。 -->
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="./index.html" class="navbar-brand">MBTI</a>
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main"
+                    aria-label="切换导航菜单">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="./personality-types.html">十六种人格简介</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="article" class="article intro-effect-jam3">
+            <!-- 首屏只放人格标题与副标题，正文在展开后阅读。 -->
+            <div class="header">
+                <div class="title">
+                    <h1 id="personality-type">MBTI</h1>
+                    <p class="subline" id="personality-subtitle">人格详情加载中</p>
+                </div>
+            </div>
+            <button class="trigger" data-info="点击查看详情" aria-label="展开人格详情">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="color: white;" fill="currentColor"
+                    class="bi bi-box" viewBox="0 0 16 16">
+                    <path
+                        d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z" />
+                </svg>
+            </button>
+            <!-- 人格正文由 personality-detail.js 从 JSON 数据中注入。 -->
+            <article class="content">
+                <div id="personality-content">
+                    <p>人格内容加载中，请稍候。</p>
+                </div>
+            </article>
+        </div>
+    </div>
+
+</body>
+
+</html>

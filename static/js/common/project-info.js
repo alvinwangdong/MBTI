@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // 这个脚本被多个页面复用，用于在控制台输出统一的项目信息。
     var license = "MIT License";
     var github = "https://github.com/MskTmi/MBTI";
     var disclaimer = "This project is for learning and reference only, and does not bear any responsibility.";
