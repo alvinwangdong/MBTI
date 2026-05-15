@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
 
 <head>
@@ -10,74 +10,17 @@
     <link rel="canonical" href="https://mbti.msktmi.com/mbti-test.html">
     <title>MBTI 职业性格测试 - 93 题</title>
     <link rel="shortcut icon" href="./static/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="./static/css/site.css" />
     <link rel="stylesheet" href="./static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./static/css/svgcheckbx.css">
-    <script type="text/javascript" src="./static/js/vendor/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="./static/css/site.css">
+    <script src="./static/js/vendor/jquery-3.7.1.min.js"></script>
     <script src="./static/js/vendor/bootstrap.min.js"></script>
     <script src="./static/js/common/scoring.js"></script>
     <script src="./static/js/pages/mbti-test.js"></script>
     <script src="./static/js/common/project-info.js"></script>
-    <style>
-        body {
-            min-height: 100%;
-        }
-
-        .questionbox {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .access-gate {
-            max-width: 480px;
-            margin: 0 auto 60px;
-            padding: 28px;
-            background: rgba(255, 255, 255, 0.94);
-            border-radius: 8px;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
-        }
-
-        .access-gate h1 {
-            margin: 0 0 12px;
-            font-size: 26px;
-        }
-
-        .access-gate p {
-            color: #555;
-            line-height: 1.7;
-        }
-
-        .access-gate label {
-            margin-top: 14px;
-            font-weight: 600;
-        }
-
-        .access-gate input {
-            height: 42px;
-        }
-
-        .access-gate button {
-            width: 100%;
-            margin-top: 20px;
-            height: 44px;
-        }
-
-        .gate-message {
-            min-height: 24px;
-            margin-top: 12px;
-            color: #555;
-        }
-
-        .gate-message-error {
-            color: #b00020;
-        }
-    </style>
 </head>
 
 <body>
-    <!-- 测试页只承载导航和题目容器，题目内容由 JS 动态生成。 -->
-    <div class="navbar navbar-default" style="margin-bottom: 10em;">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <a href="./index.html" class="navbar-brand">MBTI</a>
@@ -89,17 +32,19 @@
                 </button>
             </div>
             <div class="navbar-collapse collapse" id="navbar-main">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="./personality-types.html">十六种人格简介</a>
-                    </li>
+                <ul class="site-nav-links">
+                    <li><a href="./index.html">首页</a></li>
+                    <li><a href="./mbti-test.html">开始测评</a></li>
+                    <li><a href="./personality-types.html">人格解析</a></li>
+                    <li><a href="./mbti-test.html">专属福利</a></li>
                 </ul>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <div class="container">
-        <section class="access-gate" id="access-gate">
+    <main class="page-shell test-shell">
+        <section class="access-gate soft-card" id="access-gate">
+            <p class="gold-note">专属测评入口</p>
             <h1>领取专属测试结果</h1>
             <p>请输入你的小红书用户名和我发给你的测试 code。测试完成并展示结果后，这个 code 会自动标记为已使用。</p>
             <form id="access-form" autocomplete="off">
@@ -112,14 +57,39 @@
             </form>
         </section>
 
-        <div class="questionbox" id="test-area" style="display: none;">
-            <!-- JS 会把 questions.json 渲染成一题一屏的单选表单。 -->
-            <div class="flexWidth" id="mbtiquestion">
-                <!-- topic -->
-            </div>
-        </div>
-    </div>
+        <section class="questionbox" id="test-area" style="display: none;">
+            <div class="quiz-card soft-card" id="mbtiquestion">
+                <div class="quiz-progress">
+                    <div class="quiz-progress-copy">
+                        <span id="progress-text">第 1 / 93 题</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="quiz-progress-track" aria-hidden="true">
+                        <div class="quiz-progress-bar" id="progress-bar"></div>
+                    </div>
+                </div>
 
+                <form class="quiz-form" id="question-form" autocomplete="off">
+                    <fieldset>
+                        <legend id="question-title">题目加载中...</legend>
+                        <div class="quiz-options" id="question-options"></div>
+                    </fieldset>
+                </form>
+
+                <div class="quiz-actions">
+                    <button class="secondary-button" id="prev-question" type="button">上一题</button>
+                    <button class="primary-button" id="next-question" type="button">下一题</button>
+                </div>
+                <p class="quiz-message" id="quiz-message" aria-live="polite"></p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="compliance-footer">
+        <p>本项目为线上虚拟测评服务，答题完成即视为服务交付，不支持无理由退款</p>
+        <p>水晶手链为下单专属赠品，非单独售卖商品</p>
+        <p>赠品仅质量破损问题支持售后补寄，个人不喜欢、不满意不支持退换</p>
+    </footer>
 </body>
 
 </html>

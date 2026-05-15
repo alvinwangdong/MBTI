@@ -16,19 +16,16 @@
     <title>MBTI 人格详情</title>
     <link rel="shortcut icon" href="./static/img/favicon.ico">
     <link rel="stylesheet" href="./static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./static/css/personality-detail.css">
     <link rel="stylesheet" href="./static/css/site.css">
+    <link rel="stylesheet" href="./static/css/personality-detail.css">
     <script src="./static/js/vendor/jquery-3.7.1.min.js"></script>
     <script src="./static/js/vendor/bootstrap.min.js"></script>
-    <script src="./static/js/vendor/classie.js"></script>
     <script src="./static/js/common/project-info.js"></script>
-    <script src="./static/js/pages/personality-intro.js"></script>
     <script src="./static/js/pages/personality-detail.js"></script>
 </head>
 
 <body>
-    <!-- 通用详情页通过 URL 中的 type 参数决定展示哪一种人格。 -->
-    <div class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <a href="./index.html" class="navbar-brand">MBTI</a>
@@ -40,44 +37,66 @@
                 </button>
             </div>
             <div class="navbar-collapse collapse" id="navbar-main">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="./personality-types.html">十六种人格简介</a>
-                    </li>
+                <ul class="site-nav-links">
+                    <li><a href="./index.html">首页</a></li>
+                    <li><a href="./mbti-test.html">开始测评</a></li>
+                    <li><a href="./personality-types.html">人格解析</a></li>
+                    <li><a href="./mbti-test.html">专属福利</a></li>
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div id="article" class="article intro-effect-jam3">
-            <!-- 首屏只放人格标题与副标题，正文在展开后阅读。 -->
-            <div class="header">
-                <div class="title">
-                    <h1 id="personality-type">MBTI</h1>
-                    <p class="subline" id="personality-subtitle">人格详情加载中</p>
+    </nav>
+
+    <main class="page-shell report-shell">
+        <div class="report-download-area" id="report-download-area">
+            <header class="report-hero soft-card">
+                <p class="gold-note">你的专属人格报告</p>
+                <h1 id="personality-type">MBTI</h1>
+                <p class="subline" id="personality-subtitle">人格详情加载中</p>
+            </header>
+
+            <section class="report-summary soft-card" id="report-summary" style="display: none;">
+                <h2>本型人格速读</h2>
+                <div class="report-summary-grid">
+                    <div>
+                        <span>核心气质</span>
+                        <p id="summary-core">温柔、敏感、重视内心世界。</p>
+                    </div>
+                    <div>
+                        <span>人际模式</span>
+                        <p id="summary-social">真诚共情，偏好高质量关系。</p>
+                    </div>
+                    <div>
+                        <span>成长提醒</span>
+                        <p id="summary-growth">照顾他人时，也要看见自己的边界。</p>
+                    </div>
                 </div>
-            </div>
-            <button class="trigger" data-info="点击查看详情" aria-label="展开人格详情">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="color: white;" fill="currentColor"
-                    class="bi bi-box" viewBox="0 0 16 16">
-                    <path
-                        d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z" />
-                </svg>
-            </button>
-            <!-- 人格正文由 personality-detail.js 从 JSON 数据中注入。 -->
-            <article class="content">
-                <section class="crystal-result" id="crystal-result" style="display: none;">
-                    <p class="crystal-kicker">测试成功</p>
-                    <h2 id="crystal-title">你的专属水晶推荐</h2>
-                    <p id="crystal-description"></p>
-                </section>
-                <div id="personality-content">
-                    <p>人格内容加载中，请稍候。</p>
-                </div>
+                <p class="summary-description" id="summary-description"></p>
+            </section>
+
+            <section class="crystal-result soft-card" id="crystal-result" style="display: none;">
+                <p class="crystal-kicker">测试成功</p>
+                <h2 id="crystal-title">你的专属水晶推荐</h2>
+                <p id="crystal-description"></p>
+            </section>
+
+            <article class="report-content" id="personality-content">
+                <p>人格内容加载中，请稍候。</p>
             </article>
         </div>
-    </div>
 
+        <div class="report-actions">
+            <button class="primary-button" id="download-report" type="button">下载长图到手机</button>
+            <a class="secondary-button" href="./mbti-test.html">领取专属赠品福利</a>
+        </div>
+        <p class="download-message" id="download-message" aria-live="polite"></p>
+    </main>
+
+    <footer class="compliance-footer">
+        <p>本项目为线上虚拟测评服务，答题完成即视为服务交付，不支持无理由退款</p>
+        <p>水晶手链为下单专属赠品，非单独售卖商品</p>
+        <p>赠品仅质量破损问题支持售后补寄，个人不喜欢、不满意不支持退换</p>
+    </footer>
 </body>
 
 </html>

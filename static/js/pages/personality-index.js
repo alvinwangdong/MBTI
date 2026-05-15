@@ -53,9 +53,15 @@
     }
 
     function initHoverEffect() {
-        // 利用 Snap.svg 改写 path，实现卡片蒙版的悬停形变效果。
+        // 新版卡片不再依赖 SVG 蒙版；保留函数避免影响旧结构兼容。
         [].slice.call(document.querySelectorAll('#grid > a')).forEach(function (element) {
-            var snapInstance = Snap(element.querySelector('svg'));
+            var svg = element.querySelector('svg');
+
+            if (!svg || typeof Snap !== 'function') {
+                return;
+            }
+
+            var snapInstance = Snap(svg);
             var path = snapInstance.select('path');
             var pathConfig = {
                 from: path.attr('d'),
