@@ -20,14 +20,57 @@
     <script src="./static/js/common/project-info.js"></script>
     <style>
         body {
-            height: 100%;
-            overflow: hidden;
+            min-height: 100%;
         }
 
         .questionbox {
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .access-gate {
+            max-width: 480px;
+            margin: 0 auto 60px;
+            padding: 28px;
+            background: rgba(255, 255, 255, 0.94);
+            border-radius: 8px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+        }
+
+        .access-gate h1 {
+            margin: 0 0 12px;
+            font-size: 26px;
+        }
+
+        .access-gate p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .access-gate label {
+            margin-top: 14px;
+            font-weight: 600;
+        }
+
+        .access-gate input {
+            height: 42px;
+        }
+
+        .access-gate button {
+            width: 100%;
+            margin-top: 20px;
+            height: 44px;
+        }
+
+        .gate-message {
+            min-height: 24px;
+            margin-top: 12px;
+            color: #555;
+        }
+
+        .gate-message-error {
+            color: #b00020;
         }
     </style>
 </head>
@@ -56,7 +99,20 @@
     </div>
 
     <div class="container">
-        <div class="questionbox">
+        <section class="access-gate" id="access-gate">
+            <h1>领取专属测试结果</h1>
+            <p>请输入你的小红书用户名和我发给你的测试 code。测试完成并展示结果后，这个 code 会自动标记为已使用。</p>
+            <form id="access-form" autocomplete="off">
+                <label for="redbook-username">小红书用户名</label>
+                <input class="form-control" id="redbook-username" name="redbookUsername" type="text" required>
+                <label for="access-code">测试 code</label>
+                <input class="form-control" id="access-code" name="code" type="text" required>
+                <button class="btn btn-primary" id="gate-submit" type="submit">开始测试</button>
+                <div class="gate-message" id="gate-message" aria-live="polite"></div>
+            </form>
+        </section>
+
+        <div class="questionbox" id="test-area" style="display: none;">
             <!-- JS 会把 questions.json 渲染成一题一屏的单选表单。 -->
             <div class="flexWidth" id="mbtiquestion">
                 <!-- topic -->

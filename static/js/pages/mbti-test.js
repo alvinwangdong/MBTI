@@ -1,12 +1,129 @@
 (function () {
+    var accessInfo = null;
+
+    function setGateMessage(message, isError) {
+        var messageElement = document.getElementById('gate-message');
+
+        if (!messageElement) {
+            return;
+        }
+
+        messageElement.textContent = message || '';
+        messageElement.className = isError ? 'gate-message gate-message-error' : 'gate-message';
+    }
+
+    function setGateLoading(isLoading) {
+        var button = document.getElementById('gate-submit');
+
+        if (button) {
+            button.disabled = isLoading;
+            button.textContent = isLoading ? '校验中...' : '开始测试';
+        }
+    }
+
+    function showQuestionArea() {
+        var gate = document.getElementById('access-gate');
+        var testArea = document.getElementById('test-area');
+
+        if (gate) {
+            gate.style.display = 'none';
+        }
+
+        if (testArea) {
+            testArea.style.display = 'block';
+        }
+    }
+
+    function getAccessInfo() {
+        try {
+            return JSON.parse(sessionStorage.getItem('mbtiAccessInfo') || 'null');
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function saveAccessInfo(info) {
+        accessInfo = info;
+        sessionStorage.setItem('mbtiAccessInfo', JSON.stringify(info));
+    }
+
+    function initAccessGate() {
+        var form = document.getElementById('access-form');
+
+        if (!form) {
+            return;
+        }
+
+        accessInfo = getAccessInfo();
+
+        if (accessInfo && accessInfo.code && accessInfo.redbookUsername) {
+            showQuestionArea();
+            initMBTIPage();
+            return;
+        }
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var usernameInput = document.getElementById('redbook-username');
+            var codeInput = document.getElementById('access-code');
+            var redbookUsername = usernameInput ? usernameInput.value.trim() : '';
+            var code = codeInput ? codeInput.value.trim().toUpperCase() : '';
+
+            if (!redbookUsername || !code) {
+                setGateMessage('请填写小红书用户名和测试 code。', true);
+                return;
+            }
+
+            setGateLoading(true);
+            setGateMessage('', false);
+
+            fetch('/api/verify-code', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    redbookUsername: redbookUsername,
+                    code: code
+                })
+            })
+                .then(function (response) {
+                    return response.json().then(function (data) {
+                        if (!response.ok || !data.ok) {
+                            throw new Error(data.message || 'code 校验失败。');
+                        }
+
+                        return data;
+                    });
+                })
+                .then(function (data) {
+                    saveAccessInfo({
+                        redbookUsername: data.redbookUsername,
+                        code: data.code
+                    });
+                    showQuestionArea();
+                    initMBTIPage();
+                })
+                .catch(function (error) {
+                    setGateMessage(error.message || 'code 校验失败，请稍后重试。', true);
+                })
+                .finally(function () {
+                    setGateLoading(false);
+                });
+        });
+    }
+
     function initMBTIPage() {
         // 按作答顺序收集每一题的维度字母，供最终评分使用。
         var answers = [];
         var questionContainer = document.getElementById('mbtiquestion');
 
-        if (!questionContainer) {
+        if (!questionContainer || questionContainer.dataset.loaded === 'true') {
             return;
         }
+
+        questionContainer.dataset.loaded = 'true';
 
         function createQuestionMarkup(item, index) {
             // 每次只显示一道题，减少长表单带来的阅读和滚动负担。
@@ -93,7 +210,44 @@
                         try {
                             // 所有题目答完后，立即计算人格类型并跳转到统一详情页。
                             var page = window.MBTIScoring.calculatePersonalityType(answers);
-                            window.location.href = './personality-detail.html?type=' + page;
+                            var scores = window.MBTIScoring.calculateScores(answers);
+
+                            if (!accessInfo || !accessInfo.code || !accessInfo.redbookUsername) {
+                                alert('请先填写小红书用户名和测试 code。');
+                                window.location.reload();
+                                return;
+                            }
+
+                            fetch('/api/submit-result', {
+                                method: 'POST',
+                                headers: {
+                                    'content-type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    redbookUsername: accessInfo.redbookUsername,
+                                    code: accessInfo.code,
+                                    phone: '',
+                                    resultType: page,
+                                    scores: scores
+                                })
+                            })
+                                .then(function (response) {
+                                    return response.json().then(function (data) {
+                                        if (!response.ok || !data.ok) {
+                                            throw new Error(data.message || '结果提交失败。');
+                                        }
+
+                                        return data;
+                                    });
+                                })
+                                .then(function (data) {
+                                    sessionStorage.removeItem('mbtiAccessInfo');
+                                    sessionStorage.setItem('mbtiLatestResult', JSON.stringify(data));
+                                    window.location.href = './personality-detail.html?type=' + page + '&submitted=1';
+                                })
+                                .catch(function (error) {
+                                    alert(error.message || '结果提交失败，请联系我处理。');
+                                });
 
                             // 也可以把结果提交到后端，记录用户答题数据
                             //$.ajax({
@@ -129,8 +283,8 @@
 
     // mbti-test.js 在 head 中加载，因此必须等 DOM 建好后再寻找题目容器并开始渲染。
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMBTIPage);
+        document.addEventListener('DOMContentLoaded', initAccessGate);
     } else {
-        initMBTIPage();
+        initAccessGate();
     }
 })();

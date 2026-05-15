@@ -5,6 +5,47 @@
         return match ? decodeURIComponent(match[1]).toUpperCase() : '';
     }
 
+    function hasSubmittedResult() {
+        return /[?&]submitted=1(?:&|$)/i.test(window.location.search);
+    }
+
+    function renderCrystalResult(type) {
+        var resultElement = document.getElementById('crystal-result');
+        var titleElement = document.getElementById('crystal-title');
+        var descriptionElement = document.getElementById('crystal-description');
+
+        if (!resultElement || !titleElement || !descriptionElement) {
+            return;
+        }
+
+        fetch('./data/crystal-recommendations.json')
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Failed to load crystal recommendations');
+                }
+
+                return response.json();
+            })
+            .then(function (items) {
+                var crystal = null;
+
+                for (var index = 0; index < items.length; index += 1) {
+                    if (items[index].type === type) {
+                        crystal = items[index];
+                        break;
+                    }
+                }
+
+                if (!crystal) {
+                    return;
+                }
+
+                titleElement.textContent = '恭喜测试成功，您的性格是 ' + type + '，' + crystal.crystal + '非常适合您';
+                descriptionElement.textContent = crystal.color + '。' + crystal.reason + '。';
+                resultElement.style.display = 'block';
+            });
+    }
+
     function findPersonality(personalities, type) {
         // 数据文件是数组结构，这里按 type 字段顺序查找对应人格。
         for (var index = 0; index < personalities.length; index += 1) {
@@ -59,6 +100,10 @@
             typeElement.textContent = personality.type;
             subtitleElement.textContent = personality.subtitle || '人格详情';
             contentElement.innerHTML = personality.contentHtml || '<p>暂无人格详情内容。</p>';
+
+            if (hasSubmittedResult()) {
+                renderCrystalResult(personality.type);
+            }
 
             // 页面标题与 meta 描述跟随人格切换，方便搜索结果和分享卡片显示正确信息。
             document.title = personality.type + ' | MBTI 人格详情';

@@ -1,0 +1,7 @@
+/MBTI /index.html 200
+/MBTI/* /:splat 200
+/index.html /not-found.html 404
+/mbti-test.html /not-found.html 404
+/personality-detail.html /not-found.html 404
+/personality-types.html /not-found.html 404
+/ /not-found.html 404

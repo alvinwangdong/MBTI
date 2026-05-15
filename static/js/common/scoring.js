@@ -31,9 +31,19 @@
         }).join('');
     }
 
+    function calculateScores(answerList) {
+        validateAnswers(answerList);
+
+        return answerList.reduce(function (accumulator, current) {
+            accumulator[current] = (accumulator[current] || 0) + 1;
+            return accumulator;
+        }, {});
+    }
+
     // 挂到 window 上，方便答题页直接调用而不依赖模块系统。
     global.MBTIScoring = {
         calculatePersonalityType: calculatePersonalityType,
+        calculateScores: calculateScores,
         validateAnswers: validateAnswers
     };
 })(window);
