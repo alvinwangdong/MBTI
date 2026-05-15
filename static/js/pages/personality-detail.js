@@ -138,18 +138,12 @@
 
     function renderSummary(personality) {
         var summaryElement = document.getElementById('report-summary');
-        var descriptionElement = document.getElementById('summary-description');
         var coreElement = document.getElementById('summary-core');
         var socialElement = document.getElementById('summary-social');
         var growthElement = document.getElementById('summary-growth');
-        var rawText = stripText(personality.contentHtml || '', 280);
 
         if (!summaryElement) {
             return;
-        }
-
-        if (descriptionElement) {
-            descriptionElement.textContent = stripText(personality.description || rawText || personality.subtitle, 120);
         }
 
         if (coreElement) {

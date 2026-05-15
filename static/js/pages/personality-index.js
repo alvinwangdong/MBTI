@@ -8,22 +8,22 @@
     ];
 
     var CARD_IMAGES = {
-        ENFJ: '2.png',
-        ENFP: '3.png',
-        ENTJ: '4.png',
-        ENTP: '5.png',
-        ESFJ: '6.png',
-        ESFP: '7.png',
-        ESTJ: '8.png',
-        ESTP: '1.png',
-        INFJ: '2.png',
-        INFP: '3.png',
-        INTJ: '4.png',
-        INTP: '5.png',
-        ISFJ: '6.png',
-        ISFP: '7.png',
-        ISTJ: '8.png',
-        ISTP: '1.png'
+        ENFJ: 'mbti-types/enfj.jpg',
+        ENFP: 'mbti-types/enfp.jpg',
+        ENTJ: 'mbti-types/entj.jpg',
+        ENTP: 'mbti-types/entp.jpg',
+        ESFJ: 'mbti-types/esfj.jpg',
+        ESFP: 'mbti-types/esfp.jpg',
+        ESTJ: 'mbti-types/estj.jpg',
+        ESTP: 'mbti-types/estp.jpg',
+        INFJ: 'mbti-types/infj.jpg',
+        INFP: 'mbti-types/infp.jpg',
+        INTJ: 'mbti-types/intj.jpg',
+        INTP: 'mbti-types/intp.jpg',
+        ISFJ: 'mbti-types/isfj.jpg',
+        ISFP: 'mbti-types/isfp.jpg',
+        ISTJ: 'mbti-types/istj.jpg',
+        ISTP: 'mbti-types/istp.jpg'
     };
 
     var HOVER_PATH = 'm 0,0 0,35.7775 c 24.580441,3.12569 55.897012,-8.199417 90,-8.199417 34.10299,0 65.41956,11.325107 90,8.199417 L 180,0 z';
@@ -31,7 +31,7 @@
 
     function createCardMarkup(personality) {
         // 卡片结构把图片、标题、简介和详情页链接统一封装在一个 a 标签里。
-        var imageName = CARD_IMAGES[personality.type] || '1.png';
+        var imageName = CARD_IMAGES[personality.type] || 'mbti-types/infp.jpg';
 
         return [
             '<a href="./personality-detail.html?type=' + personality.type + '" data-path-hover="' + HOVER_PATH + '" aria-label="查看 ' + personality.type + ' 人格详情">',
